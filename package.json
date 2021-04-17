@@ -1,0 +1,50 @@
+{
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/cool-team-official/cool-admin-midway/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "flat-cache": "^3.0.4",
+    "func-loc": "^0.1.15",
+    "md5": "^2.3.0",
+    "mysql-import": "^5.0.21"
+  },
+  "deprecated": false,
+  "description": "<p align=\"center\">   <a href=\"https://midwayjs.org/\" target=\"blank\"><img src=\"https://cool-show.oss-cn-shanghai.aliyuncs.com/admin/logo.png\" width=\"200\" alt=\"Midway Logo\" /></a> </p>",
+  "devDependencies": {
+    "@midwayjs/cli": "^1.2.39",
+    "@midwayjs/core": "^2.7.0",
+    "@midwayjs/decorator": "^2.7.0",
+    "@midwayjs/orm": "^1.3.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "14",
+    "cross-env": "^7.0.3",
+    "jest": "^26.6.3",
+    "lodash": "^4.17.20",
+    "mwts": "^1.1.2",
+    "ts-jest": "^26.5.0",
+    "typescript": "^4.1.3"
+  },
+  "files": [
+    "**/*.js",
+    "**/*.d.ts"
+  ],
+  "homepage": "https://github.com/cool-team-official/cool-admin-midway#readme",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "midwayjs-cool-core-fix",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cool-team-official/cool-admin-midway.git"
+  },
+  "scripts": {
+    "build": "midway-bin build -c",
+    "ci": "npm run cov",
+    "cov": "midway-bin cov --ts",
+    "test": "midway-bin test --ts"
+  },
+  "typings": "index.d.ts",
+  "version": "3.1.8"
+}

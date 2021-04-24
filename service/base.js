@@ -260,11 +260,11 @@ let BaseService = class BaseService {
                 const wheres = await option.where(this.ctx, this.app);
                 if (!_.isEmpty(wheres)) {
                     for (const item of wheres) {
-                        find.andWhere(item[0], item[1]);
-                        if (item.length == 2 || (item.length == 3 && item[2])) {
+                        if (item.length == 2 || (item.length == 3 && (item[2] || (item[2] === 0 && item[2] != '')))) {
                             for (const key in item[1]) {
                                 this.sqlParams.push(item[1][key]);
                             }
+                            find.andWhere(item[0], item[1]);
                         }
                     }
                 }

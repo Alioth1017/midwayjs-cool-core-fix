@@ -30,7 +30,6 @@ const typeorm_1 = require("typeorm");
 const Importer = require("mysql-import");
 const node_1 = require("./component/cache/node");
 const module_1 = require("./entity/core/module");
-const core_1 = require("./exceptions/core");
 let AutoConfiguration = class AutoConfiguration {
     async onReady(container) {
         // 处理异常
@@ -134,7 +133,7 @@ let AutoConfiguration = class AutoConfiguration {
             const controllerOption = decorator_1.getClassMetadata(decorator_1.CONTROLLER_KEY, crud);
             // 获得到model
             let entityModel;
-            const { entity } = controllerOption.curdOption || {};
+            const { entity } = (controllerOption === null || controllerOption === void 0 ? void 0 : controllerOption.curdOption) || {};
             if (entity) {
                 let modelClass;
                 if (entity.connectionName) {
@@ -151,7 +150,7 @@ let AutoConfiguration = class AutoConfiguration {
                 await this.CrudRouter(entityModel, controllerOption, modelClass, container);
             }
             // 模块
-            if (controllerOption.module) {
+            if (controllerOption === null || controllerOption === void 0 ? void 0 : controllerOption.module) {
                 const moduleEntity = new module_1.CoreModule();
                 moduleEntity.name = controllerOption.module;
                 const path = `${this.app.baseDir}/app/modules/${controllerOption.module}/config.${this.app.config.env == 'local' ? 'ts' : 'js'}`;
@@ -207,27 +206,26 @@ let AutoConfiguration = class AutoConfiguration {
             middlewareConfigs = middlewareConfigs.concat(controllerOption.routerOptions.middleware);
         }
         // 模块路由中间件
-        if (controllerOption.module) {
-            const path = `${this.app.baseDir}/app/modules/${controllerOption.module}/config.${this.app.config.env == 'local' ? 'ts' : 'js'}`;
-            if (fs.existsSync(path)) {
-                const moduleConfig = require(path).default(this.app);
-                if (moduleConfig && moduleConfig.middlewares) {
-                    for (const item of moduleConfig.middlewares) {
-                        if (!this.app['middlewaresArr']) {
-                            this.app['middlewaresArr'] = [];
-                        }
-                        if (!this.app['middlewaresArr'].includes(item)) {
-                            //this.app.use(await this.app['generateMiddleware'](item));
-                            this.app['middlewaresArr'].push(item);
-                            middlewareConfigs.push(item);
-                        }
-                    }
-                }
-            }
-            else {
-                throw new core_1.CoolCoreException(`模块[${controllerOption.module}]，缺少配置文件config.ts`);
-            }
-        }
+        // if (controllerOption.module) {
+        //     const path = `${this.app.baseDir}/app/modules/${controllerOption.module}/config.${this.app.config.env == 'local' ? 'ts' : 'js'}`;
+        //     if (fs.existsSync(path)) {
+        //         const moduleConfig: ModuleConfig = require(path).default(this.app);
+        //         if (moduleConfig && moduleConfig.middlewares) {
+        //             for (const item of moduleConfig.middlewares) {
+        //                 if (!this.app['middlewaresArr']) {
+        //                     this.app['middlewaresArr'] = [];
+        //                 }
+        //                 if (!this.app['middlewaresArr'].includes(item)) {
+        //                     //this.app.use(await this.app['generateMiddleware'](item));
+        //                     this.app['middlewaresArr'].push(item);
+        //                     middlewareConfigs.push(item);
+        //                 }
+        //             }
+        //         }
+        //     } else {
+        //         throw new CoolCoreException(`模块[${controllerOption.module}]，缺少配置文件config.ts`);
+        //     }
+        // }
         // 去重
         middlewareConfigs = _.uniq(middlewareConfigs);
         for (const item of middlewareConfigs) {

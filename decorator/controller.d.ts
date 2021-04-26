@@ -42,7 +42,7 @@ export interface ControllerOption {
 }
 export declare function CoolController(curdOption?: CurdOption | string, routerOptions?: {
     sensitive?: boolean;
-    middleware?: MiddlewareParamArray;
+    middleware?: string[];
     description?: string;
     tagName?: string;
 }): ClassDecorator;

@@ -3,6 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CoolController = void 0;
 const decorator_1 = require("@midwayjs/decorator");
 const func_loc_1 = require("func-loc");
+const fs = require("fs");
+const _ = require("lodash");
+const core_1 = require("../exceptions/core");
+const os = require("os");
 // COOL的装饰器
 function CoolController(curdOption, routerOptions = { middleware: [], sensitive: true }) {
     return (target) => {
@@ -39,6 +43,19 @@ function CoolController(curdOption, routerOptions = { middleware: [], sensitive:
             if (module) {
                 pathArr.reverse();
                 pathArr.splice(1, 0, module);
+                // 追加模块中间件
+                let path = `${res.path.split(`src/app/modules/${module}`)[0]}src/app/modules/${module}/config.${_.endsWith(res.path, 'ts') ? 'ts' : 'js'}`;
+                if (os.type() == 'Windows_NT') {
+                    path = path.substr(1);
+                }
+                if (fs.existsSync(path)) {
+                    const moduleConfig = require(path).default({});
+                    routerOptions.middleware = (moduleConfig.middlewares || []).concat(routerOptions.middleware);
+                    routerOptions.middleware = _.uniq(routerOptions.middleware);
+                }
+                else {
+                    throw new core_1.CoolCoreException(`模块[${module}]，缺少配置文件config.ts`);
+                }
             }
             if (!prefix) {
                 prefix = `/${pathArr.join('/')}`;

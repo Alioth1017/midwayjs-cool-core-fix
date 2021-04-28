@@ -18,6 +18,7 @@ __exportStar(require("./service/base"), exports);
 __exportStar(require("./controller/base"), exports);
 __exportStar(require("./decorator/controller"), exports);
 __exportStar(require("./decorator/cache"), exports);
+__exportStar(require("./decorator/transaction"), exports);
 // 异常处理
 __exportStar(require("./exceptions/base"), exports);
 __exportStar(require("./exceptions/comm"), exports);

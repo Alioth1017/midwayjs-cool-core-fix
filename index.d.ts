@@ -4,6 +4,7 @@ export * from './service/base';
 export * from './controller/base';
 export * from './decorator/controller';
 export * from './decorator/cache';
+export * from './decorator/transaction';
 export * from './exceptions/base';
 export * from './exceptions/comm';
 export * from './exceptions/validate';

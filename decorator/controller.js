@@ -44,7 +44,7 @@ function CoolController(curdOption, routerOptions = { middleware: [], sensitive:
                 pathArr.reverse();
                 pathArr.splice(1, 0, module);
                 // 追加模块中间件
-                let path = `${res.path.split(`src/app/modules/${module}`)[0]}src/app/modules/${module}/config.${_.endsWith(res.path, 'ts') ? 'ts' : 'js'}`;
+                let path = `${res.path.split(`app/modules/${module}`)[0]}app/modules/${module}/config.${_.endsWith(res.path, 'ts') ? 'ts' : 'js'}`;
                 if (os.type() == 'Windows_NT') {
                     path = path.substr(1);
                 }

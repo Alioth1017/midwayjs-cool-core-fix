@@ -248,6 +248,10 @@ let BaseService = class BaseService {
         let selects = ['a.*'];
         let find = this.entity.createQueryBuilder('a');
         if (option) {
+            if (typeof option == 'function') {
+                // @ts-ignore
+                option = await option(this.ctx, this.app);
+            }
             // 判断是否有关联查询，有的话取个别名
             if (!_.isEmpty(option.leftJoin)) {
                 for (const item of option.leftJoin) {
@@ -257,7 +261,7 @@ let BaseService = class BaseService {
             }
             // 默认条件
             if (option.where) {
-                const wheres = await option.where(this.ctx, this.app);
+                const wheres = typeof option.where == 'function' ? await option.where(this.ctx, this.app) : option.where;
                 if (!_.isEmpty(wheres)) {
                     for (const item of wheres) {
                         if (item.length == 2 || (item.length == 3 && (item[2] || (item[2] === 0 && item[2] != '')))) {

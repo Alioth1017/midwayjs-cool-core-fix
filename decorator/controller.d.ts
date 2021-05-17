@@ -3,8 +3,8 @@ declare type ApiTypes = 'add' | 'delete' | 'update' | 'page' | 'info' | 'list';
 export interface CurdOption {
     prefix?: string;
     api: ApiTypes[];
-    pageQueryOp?: QueryOp;
-    listQueryOp?: QueryOp;
+    pageQueryOp?: QueryOp | Function;
+    listQueryOp?: QueryOp | Function;
     insertParam?: Function;
     infoIgnoreProperty?: string[];
     entity: {
